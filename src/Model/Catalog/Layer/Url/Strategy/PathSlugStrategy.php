@@ -12,13 +12,13 @@ use Emico\Tweakwise\Exception\RuntimeException;
 use Emico\Tweakwise\Exception\UnexpectedValueException;
 use Emico\Tweakwise\Model\Catalog\Layer\Filter\Item;
 use Emico\Tweakwise\Model\Catalog\Layer\NavigationContext\CurrentContext;
-use Emico\Tweakwise\Model\Catalog\Layer\Url\RewriteResolver\RewriteResolverInterface;
-use Emico\Tweakwise\Model\Catalog\Layer\UrlFactory;
 use Emico\Tweakwise\Model\Catalog\Layer\Url\CategoryUrlInterface;
 use Emico\Tweakwise\Model\Catalog\Layer\Url\FilterApplierInterface;
+use Emico\Tweakwise\Model\Catalog\Layer\Url\RewriteResolver\RewriteResolverInterface;
 use Emico\Tweakwise\Model\Catalog\Layer\Url\RouteMatchingInterface;
 use Emico\Tweakwise\Model\Catalog\Layer\Url\UrlInterface;
 use Emico\Tweakwise\Model\Catalog\Layer\Url\UrlModel;
+use Emico\Tweakwise\Model\Catalog\Layer\UrlFactory;
 use Emico\Tweakwise\Model\Client\Request\ProductNavigationRequest;
 use Emico\Tweakwise\Model\Client\Request\ProductSearchRequest;
 use Emico\Tweakwise\Model\Client\Type\FacetType\SettingsType;
@@ -28,10 +28,10 @@ use Magento\Catalog\Model\Layer\Resolver;
 use Magento\CatalogUrlRewrite\Model\CategoryUrlPathGenerator;
 use Magento\Framework\App\ActionInterface;
 use Magento\Framework\App\Config\ScopeConfigInterface;
-use Magento\UrlRewrite\Service\V1\Data\UrlRewrite;
-use Zend\Http\Request as HttpRequest;
 use Magento\Framework\App\Request\Http as MagentoHttpRequest;
 use Magento\Framework\UrlInterface as MagentoUrlInterface;
+use Magento\UrlRewrite\Service\V1\Data\UrlRewrite;
+use Zend\Http\Request as HttpRequest;
 
 class PathSlugStrategy implements UrlInterface, RouteMatchingInterface, FilterApplierInterface, CategoryUrlInterface
 {
@@ -103,7 +103,7 @@ class PathSlugStrategy implements UrlInterface, RouteMatchingInterface, FilterAp
      * @param Config $config
      * @param CurrentContext $currentContext
      * @param ScopeConfigInterface $scopeConfig
-     * @param array $rewriteEntities
+     * @param RewriteResolverInterface[] $rewriteResolvers
      * @param array $skipMatchExtensions
      */
     public function __construct(
@@ -170,7 +170,7 @@ class PathSlugStrategy implements UrlInterface, RouteMatchingInterface, FilterAp
 
     /**
      * @param MagentoHttpRequest|HttpRequest $request
-     * @param Item $item
+     * @param Item $i
      * @return string
      */
     public function getSliderUrl(HttpRequest $request, Item $item): string
@@ -292,7 +292,6 @@ class PathSlugStrategy implements UrlInterface, RouteMatchingInterface, FilterAp
         return $this->getCurrentUrl();
     }
 
-
     /**
      * @return string
      */
@@ -332,7 +331,7 @@ class PathSlugStrategy implements UrlInterface, RouteMatchingInterface, FilterAp
             }
         } else {
             // Replace filter path in current URL with the new filter combination path
-             $url = str_replace($currentFilterPath, $newFilterPath, $currentUrl);
+            $url = str_replace($currentFilterPath, $newFilterPath, $currentUrl);
         }
         $categoryUrlSuffix = $this->scopeConfig->getValue(
             CategoryUrlPathGenerator::XML_PATH_CATEGORY_URL_SUFFIX,
