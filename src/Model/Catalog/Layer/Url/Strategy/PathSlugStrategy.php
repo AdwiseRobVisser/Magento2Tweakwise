@@ -35,7 +35,7 @@ use Zend\Http\Request as HttpRequest;
 
 class PathSlugStrategy implements UrlInterface, RouteMatchingInterface, FilterApplierInterface, CategoryUrlInterface
 {
-    const REQUEST_FILTER_PATH = 'filter_path';
+    public const REQUEST_FILTER_PATH = 'filter_path';
 
     /**
      * @var Resolver
@@ -53,6 +53,11 @@ class PathSlugStrategy implements UrlInterface, RouteMatchingInterface, FilterAp
     protected $magentoUrl;
 
     /**
+     * @var UrlFinderInterface
+     */
+    protected $urlFinder;
+
+    /**
      * @var Item[]
      */
     protected $activeFilters;
@@ -66,6 +71,11 @@ class PathSlugStrategy implements UrlInterface, RouteMatchingInterface, FilterAp
      * @var UrlFactory
      */
     protected $urlFactory;
+
+    /**
+     * @var StoreManagerInterface
+     */
+    protected $storeManager;
 
     /**
      * @var Config
