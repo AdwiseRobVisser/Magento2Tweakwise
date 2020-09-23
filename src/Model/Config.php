@@ -224,6 +224,15 @@ class Config
      * @param Store|null $store
      * @return bool
      */
+    public function isSuggestionsAutocomplete(Store $store = null)
+    {
+        return (bool) $this->getStoreConfig('tweakwise/autocomplete/use_suggestions', $store);
+    }
+
+    /**
+     * @param Store|null $store
+     * @return bool
+     */
     public function isAutocompleteProductsEnabled(Store $store = null)
     {
         return (bool)$this->getStoreConfig('tweakwise/autocomplete/show_products', $store);

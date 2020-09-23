@@ -22,7 +22,6 @@ use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Catalog\Api\CategoryRepositoryInterface;
 use Emico\TweakwiseExport\Model\Helper as ExportHelper;
 
-
 class QueryParameterStrategy implements UrlInterface, FilterApplierInterface, CategoryUrlInterface
 {
     /**
@@ -349,6 +348,7 @@ class QueryParameterStrategy implements UrlInterface, FilterApplierInterface, Ca
             /** @var ProductSearchRequest $navigationRequest */
             $navigationRequest->setSearch($search);
         }
+
         return $this;
     }
 
