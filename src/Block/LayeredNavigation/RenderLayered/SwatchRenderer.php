@@ -10,7 +10,6 @@ namespace Emico\Tweakwise\Block\LayeredNavigation\RenderLayered;
 
 use Emico\Tweakwise\Model\Catalog\Layer\Filter;
 use Emico\Tweakwise\Model\Catalog\Layer\Filter\Item;
-use Emico\Tweakwise\Model\Config;
 use Emico\Tweakwise\Model\Seo\FilterHelper;
 use Emico\Tweakwise\Model\Swatches\SwatchAttributeResolver;
 use Magento\Catalog\Model\Product;
@@ -36,11 +35,6 @@ class SwatchRenderer extends RenderLayered
     protected $_template = 'Emico_Tweakwise::product/layered/swatch.phtml';
 
     /**
-     * @var Config
-     */
-    protected $config;
-
-    /**
      * @var Filter
      */
     protected $filter;
@@ -62,7 +56,6 @@ class SwatchRenderer extends RenderLayered
      * @param AttributeFactory $layerAttribute
      * @param Data $swatchHelper
      * @param Media $mediaHelper
-     * @param Config $config
      * @param EavAttributeFactory $eavAttributeFactory
      * @param FilterHelper $filterHelper
      * @param SwatchAttributeResolver $swatchAttributeResolver
@@ -74,7 +67,6 @@ class SwatchRenderer extends RenderLayered
         AttributeFactory $layerAttribute,
         Data $swatchHelper,
         Media $mediaHelper,
-        Config $config,
         EavAttributeFactory $eavAttributeFactory,
         FilterHelper $filterHelper,
         SwatchAttributeResolver $swatchAttributeResolver,
@@ -88,7 +80,6 @@ class SwatchRenderer extends RenderLayered
             $mediaHelper,
             $data
         );
-        $this->config = $config;
         $this->eavAttributeFactory = $eavAttributeFactory;
         $this->filterHelper = $filterHelper;
         $this->swatchAttributeResolver = $swatchAttributeResolver;
