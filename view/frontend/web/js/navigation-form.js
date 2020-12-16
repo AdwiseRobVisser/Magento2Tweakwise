@@ -7,6 +7,7 @@
 
 define([
     'jquery',
+    'mage/cookies'
 ], function ($) {
     $.widget('tweakwise.navigationForm', {
 
@@ -34,11 +35,13 @@ define([
          * @private
          */
         _hookEvents: function () {
-            if (this.options.ajaxFilters) {
-                this._bindPopChangeHandler()
-            }
             this._bindFilterClickEvents();
             this._bindFilterRemoveEvents();
+
+            if (this.options.ajaxFilters) {
+                this._bindPopChangeHandler();
+                this._bindReloadList();
+            }
         },
 
         /**
@@ -76,6 +79,28 @@ define([
                     this._updateBlocks(event.state.html);
                 }
             }.bind(this);
+        },
+
+        /**
+         *
+         * @private
+         */
+        _bindReloadList: function () {
+            $('document').ready(function () {
+                var profileKey = this._getProfileCookie();
+                if (profileKey && false) {
+                    this.element.trigger('change');
+                }
+            }.bind(this));
+        },
+
+        /**
+         *
+         * @returns {String}
+         * @private
+         */
+        _getProfileCookie: function () {
+            return $.mage.cookies.get('profileKey');
         },
 
         /**
@@ -175,6 +200,8 @@ define([
                 this._defaultHandler(event);
                 return;
             }
+
+            this.options.reloadList = false;
 
             this._startLoader();
             this.currentXhr = $.ajax({
